@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Java Env Switch</title>
+    <style>
+        body {
+            width: 150px;
+            height: 150px;
+            font-family: monospace;
+            background-color: #737373;
+            color: #fec04c;
+            margin: 0;
+            font-size: 15px;
+        }
+        #container {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+        #header {
+            font-size: 15px;
+            height: 20px;
+        }
+    </style>
+    <script>
+        document.onreadystatechange = function() {
+            if(document.readyState == 'complete') {
+                System.Gadget.settingsUI = 'settings.html';
+            }
+        }
+
+        function init() {
+            if (System.Gadget.Settings.read('settingExist') == true) {
+                document.getElementById('warning').style.display = 'none';
+                document.getElementById('elements').style.display = 'block';
+
+				for(var i = 5; i < 9; i++) {
+					document.getElementById('j' + i).disabled = 
+						(System.Gadget.Settings.read('jdk' + i).length < 1) ? true : false;
+				}
+
+				document.getElementById('j' + System.Gadget.Settings.read('currentVersion')).checked = true;
+            } else {
+                document.getElementById('elements').style.display = 'none';
+                document.getElementById('warning').style.display = 'block';
+            }
+        }
+
+        function setJavaOption(jdk, jre) {
+            var shell = new ActiveXObject('WScript.Shell');
+            var vars = shell.Environment('User');
+            vars('JAVA_HOME') = jdk;
+            vars('JRE_HOME') = jre;
+        }
+
+        function setJava(ver) {
+            System.Gadget.Settings.write('currentVersion', ver);
+            var jdk = System.Gadget.Settings.read('jdk' + ver);
+            var jre = System.Gadget.Settings.read('jre' + ver);
+            setJavaOption(jdk, jre);
+        }
+
+        System.Gadget.onSettingsClosed = function(event) {
+            if(event.closeAction == event.Action.commit) {
+                init();
+            }
+        }
+    </script>
+</head>
+<body onload="init();">
+    <table id="container" cellpadding="0" cellspacing="0" border="1">
+        <tr>
+            <td colspan="2" id="header"><strong>Java Env Switch</strong></td>
+        </tr>
+        <tr id="warning">
+            <td colspan="2"><strong>Configuration not set.</strong></td>
+        </tr>
+        <tbody id="elements">
+			<script>
+				for(var i = 5; i < 9; i++) {
+					document.write('<tr id="ver' + i + '"><td>Java ' + i + '</td>');
+					document.write('<td><input type="radio" name="java" value="j' + i + '" id="j' + i + '" onclick="setJava(' + i + ');"></td></tr>');
+				}
+			</script>
+        </tbody>
+    </table>
+</body>
+</html>

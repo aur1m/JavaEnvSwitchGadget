@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<gadget>
+    <name>JavaEnvSwitchGadget</name>
+    <version>1.0</version>
+    <author name="ICE" />
+    <description>Java Environment Switcher</description>
+    <icons>
+        <icon height="48" width="48" src="img/java.png"/>
+    </icons>
+    <hosts>
+        <host name="sidebar">
+            <base type="HTML" apiVersion="1.0.0" src="gadget.html" />
+            <permissions>full</permissions>
+            <platform minPlatformVersion="0.1" />
+            <defaultImage src="img/java.png" />
+        </host>
+    </hosts>
+</gadget>
