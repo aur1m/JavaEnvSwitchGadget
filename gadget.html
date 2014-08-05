@@ -34,10 +34,15 @@
                 document.getElementById('warning').style.display = 'none';
                 document.getElementById('elements').style.display = 'block';
 
-				for(var i = 5; i < 9; i++) {
+				for(var i = 6; i < 9; i++) {
 					document.getElementById('j' + i).disabled = 
 						(System.Gadget.Settings.read('jdk' + i).length < 1) ? true : false;
 				}
+				document.getElementById('j76').disabled = 
+						(System.Gadget.Settings.read('jdk76').length < 1) ? true : false;
+				document.getElementById('j86').disabled = 
+						(System.Gadget.Settings.read('jdk86').length < 1) ? true : false;
+
 
 				document.getElementById('j' + System.Gadget.Settings.read('currentVersion')).checked = true;
             } else {
@@ -77,7 +82,11 @@
         </tr>
         <tbody id="elements">
 			<script>
-				for(var i = 5; i < 9; i++) {
+					document.write('<tr id="verWAS7"><td>WAS 7</td>');
+					document.write('<td><input type="radio" name="java" value="j76" id="j76" onclick="setJava(76);"></td></tr>');
+					document.write('<tr id="verWAS8"><td>WAS 8</td>');
+					document.write('<td><input type="radio" name="java" value="j86" id="j86" onclick="setJava(86);"></td></tr>');
+				for(var i = 6; i < 9; i++) {
 					document.write('<tr id="ver' + i + '"><td>Java ' + i + '</td>');
 					document.write('<td><input type="radio" name="java" value="j' + i + '" id="j' + i + '" onclick="setJava(' + i + ');"></td></tr>');
 				}

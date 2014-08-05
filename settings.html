@@ -32,9 +32,11 @@
 	
         function init() {
             if (System.Gadget.Settings.read('settingExist') == true) {
-				for(var i = 5; i < 9; i++) {
+				for(var i = 6; i < 9; i++) {
 					readSettings(i);
 				}
+				readSettings(76);
+				readSettings(86);
             }
             System.Gadget.onSettingsClosing = applySettings;
         }
@@ -42,9 +44,11 @@
         function applySettings(event) {
             if (event.closeAction == event.Action.commit)
             {
-                for(var i = 5; i < 9; i++) {
+                for(var i = 6; i < 9; i++) {
 					writeSettings(i);
-				}
+				}				
+				writeSettings(76);
+				writeSettings(86);
                 System.Gadget.Settings.write('settingExist', true);
             }
         }
@@ -58,7 +62,14 @@
         </tr>
 		<tbody>
 			<script>
-				for(var i = 5; i < 9; i++) {
+					document.write('<tr><td><strong>WAS 7</strong></td>');
+					document.write('<td>JDK: <input type="text" id="jdk76">');
+					document.write('<br>JRE: <input type="text" id="jre76"></td></tr>');
+					
+					document.write('<tr><td><strong>WAS 8</strong></td>');
+					document.write('<td>JDK: <input type="text" id="jdk86">');
+					document.write('<br>JRE: <input type="text" id="jre86"></td></tr>');
+				for(var i = 6; i < 9; i++) {
 					document.write('<tr><td><strong>' + i + '</strong></td>');
 					document.write('<td>JDK: <input type="text" id="jdk' + i + '">');
 					document.write('<br>JRE: <input type="text" id="jre' + i + '"></td></tr>');
